@@ -45,7 +45,7 @@ function CreacionPlantillas() {
             <Container fluid>
                 <Stack direction='horizontal' gap={3} className="col-md-12 mx-auto">
                     <Button>
-                    <NavLink to="/VisualizadorEtiquetas" className="text-light rounded " activeclassname="active">
+                    <NavLink to="/CrearPlantilla" className="text-light rounded " activeclassname="active">
                         <FaFile className="me-2"/> 
                         Crear Plantilla
                     </NavLink>
