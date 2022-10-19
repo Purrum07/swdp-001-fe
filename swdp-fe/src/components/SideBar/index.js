@@ -16,6 +16,11 @@ function SideBar() {
                     </NavLink>
                 </li>
                 <li>
+                    <NavLink to="/plantillas" className="text-light rounded py-2 d-inline-block px-3" activeclassname="active">
+                        <FaBarcode className="me-2"/> Plantillas
+                    </NavLink>
+                </li>
+                <li>
                     <NavLink to="/Utilidades" className="text-light rounded py-2 d-inline-block px-3" activeclassname="active">
                         <FaChartBar className="me-2"/> Utilidades
                     </NavLink>  
