@@ -21,15 +21,17 @@ function CreacionPlantillas() {
     const [plantillas, setPlantilla] = useState([{}]);
          
     useEffect(() => {
-        /*
-        PlantillasService.getAll()
+        const ps = new PlantillasService();
+        ps.getAll()
             .then( response => {
-                setPlantilla(response);
+                setPlantilla(response.data.data);
+                console.log(response);
             })
-        */
+        /*
         setPlantilla([{nombreArchivo: "plantilla2.xlm", tamanio: "300x100", nombreProducto: "Motor Bonfiglioli o yo k se", codigoBarras: "afawgaarbtwrbawbna", cantidadPzas: 4},
                       {nombreArchivo: "plantilla3.xlm", tamanio: "640x220", nombreProducto: "Reductor Perron", codigoBarras: "obnaohtnfsobtoapajrandw", cantidadPzas: 5}]);
-    });
+        */
+    }, []);
     
     let htmlsPlan = [];
     for(let i = 0; i < plantillas.length; i++){

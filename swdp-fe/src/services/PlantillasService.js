@@ -1,16 +1,14 @@
-const axios = require('axios');
+import PlantillasAPI from './PlantillasAPI';
 
 class PlantillasService {
     getAll() {
-        let res = axios.get('http://webcode.me/plantillas')
-        return res.data;
+        return PlantillasAPI.get('/labels/all');
     }
     
     get(id) {
-        let res = axios.get(`http://webcode.me/plantillas/${id}`)
-        return res.data;
+        return PlantillasAPI.get(`/labels/${id}`);
     }
 
 }
 
-export default new PlantillasService();
+export default PlantillasService;

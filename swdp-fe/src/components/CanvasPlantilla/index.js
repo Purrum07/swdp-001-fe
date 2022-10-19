@@ -14,7 +14,7 @@ function CanvasPlantilla(props) {
                 <Stack direction='vertical' gap={1} className="col-md-12">
                     <div className='titulo-plantilla'>
                         <h3>
-                            {props.plantilla.nombreArchivo}
+                            {props.plantilla.nombreArchivo}.xml
                         </h3>
                     </div>
                     <div className='informacion-plantilla'>
@@ -23,13 +23,22 @@ function CanvasPlantilla(props) {
                                 Tamanio: {props.plantilla.tamanio} px
                             </div>
                             <div>
-                                Nombre Producto: {props.plantilla.nombreProducto}
+                                Nombre Producto: {props.plantilla.description}
                             </div>
                             <div>
-                                Codigo-Barras: {props.plantilla.codigoBarras}
+                                Clave Producto: {props.plantilla.id}
                             </div>
                             <div>
-                                Cantidad-Pzas: {props.plantilla.cantidadPzas}
+                                Orden de Compra: {props.plantilla.purchase_order}
+                            </div>
+                            <div>
+                                Cantidad-Pzas: {props.plantilla.quantity}
+                            </div>
+                            <div>
+                                Proveedor: {props.plantilla.supplier}
+                            </div>
+                            <div>
+                                Codigo-Barras: {props.plantilla.svg}
                             </div>
                         </Stack>
                     </div>
