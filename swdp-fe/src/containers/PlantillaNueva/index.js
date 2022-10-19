@@ -1,19 +1,18 @@
 import React from "react";
-import LableForm from "../../components/LableForm";
 import TempleteForm from "../../components/FormaPlantilla";
 
 /*
 * Contenedor para VisualizadorEtiquetas
 */
 
-function VisualizadorEtiquetas() {
+function PlantillaNueva() {
     /*
     * Renderiza el contenendor.
     * @return {string} - HTML markup para el contenedor.
     */
     return (
-        <LableForm/>
+        <TempleteForm/>
     );
 }
 
-export default VisualizadorEtiquetas;
+export default PlantillaNueva;
