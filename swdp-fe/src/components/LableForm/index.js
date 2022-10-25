@@ -2,6 +2,10 @@ import React from 'react';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import { NavLink } from 'react-router-dom';
+import LabelService from "../../services/LabelService"
+import crearImagen from "../../utilities/CrearImagen";
+
+
 
 function LableForm() {
 
@@ -9,15 +13,35 @@ function LableForm() {
     const [client, setClient] = React.useState('');
     const [order, setOrder] = React.useState('');
     const [provider, setProvider] = React.useState('');
+    const [internCode, setInterCode] = React.useState('');
+    const [quantity, setQuantity] = React.useState('');
+    const [barCode, setBarCode] = React.useState('');
 
-    function handleChange(e) {
+    function getLabel(e) {
         e.preventDefault()
-        //Llamada al GET
-        setDescription("Es la comida mas rica")
-        setClient("Mario ")
-        setOrder("123456")
-        setProvider("Bimbo")
+        const ls = new LabelService();
 
+        ls.getLabel(internCode)
+            .then(response => {
+                setDescription(response.data.data.description)
+                setClient(response.data.data.client)
+                setOrder(response.data.data.purchase_order)
+                setProvider(response.data.data.supplier)
+                var contenido_svg = response.data.data.svg;
+                response.data.data.svg = crearImagen(contenido_svg);
+                setBarCode(response.data.data.svg)
+                console.log(response)
+            })
+    }
+
+    function handleChangeCode(e) {
+        e.preventDefault()
+        setInterCode(e.target.value)
+    }
+
+    function handleChangeQuantity(e) {
+        e.preventDefault()
+        setQuantity(e.target.value)
     }
 
     return (
@@ -25,9 +49,9 @@ function LableForm() {
         <Form>
             <Form.Group className="mb-3" controlId="formInterCode" >
                 <Form.Label>Código Interno</Form.Label>
-                <Form.Control type="code" placeholder="Ingrese código interno" />
+                <Form.Control type="code" placeholder="Ingrese código interno" value={internCode} onChange={handleChangeCode} />
             </Form.Group>
-            <Button variant="primary" type="submit" onClick={handleChange}>
+            <Button variant="primary" type="submit" onClick={getLabel}>
                 Obtener información
             </Button>
             <Form.Group className="mb-3" controlId="formDescription">
@@ -52,8 +76,15 @@ function LableForm() {
             </Form.Group>
             <Form.Group className="mb-3" controlId="formQuantity">
                 <Form.Label>Cantidad</Form.Label>
-                <Form.Control type="quantity" value="Hola" />
+                <Form.Control type="quantity" value={quantity} onChange={handleChangeQuantity} />
             </Form.Group>
+            <Form.Group>
+                <Form.Label>Código de barras</Form.Label>
+                <div>
+                    <svg dangerouslySetInnerHTML={{ __html: barCode }}></svg>
+                </div>
+            </Form.Group>
+
             <Button variant="primary" type="submit">
                 Crear
             </Button>
