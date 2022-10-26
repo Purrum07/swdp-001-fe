@@ -169,7 +169,7 @@ function LabelForm() {
                         <div>
                             <Row>
                                 <Col xs={6}>
-                                    <Pdf targetRef={ref} filename="ReporteGAID.pdf" options={options} x={.5} y={.5} scale={0.8}>
+                                    <Pdf targetRef={ref} filename="Etiqueta.pdf" options={options} x={.5} y={.5} scale={0.8}>
                                         {({ toPdf }) => <Button variant="contained" onClick={() => handleCreateOnClick(toPdf)}
                                             style={{
                                                 backgroundColor: "#1a75ff",
