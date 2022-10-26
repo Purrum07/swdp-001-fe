@@ -38,7 +38,7 @@ function CanvasPlantilla(props) {
                                 Proveedor: {props.plantilla.supplier}
                             </div>
                             <div>
-                                Codigo-Barras: {props.plantilla.svg}
+                                Codigo-Barras:  <svg dangerouslySetInnerHTML={{__html: props.plantilla.svg}}></svg>
                             </div>
                         </Stack>
                     </div>

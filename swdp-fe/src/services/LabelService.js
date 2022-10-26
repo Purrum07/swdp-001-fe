@@ -1,7 +1,9 @@
 import LableAPI from "./LableAPI";
 
 class LabelService {
-    getLabel(){
-        return LableAPI.get()
+    getLabel(id){
+        return LableAPI.get(`/labels/${id}`);
     }
 }
+
+export default LabelService;

@@ -7,6 +7,7 @@ import Button from 'react-bootstrap/Button';
 import Container from 'react-bootstrap/Container';
 import CanvasPlantilla from "../../components/CanvasPlantilla";
 import PlantillasService from "../../services/PlantillasService";
+import crearImagen from "../../utilities/CrearImagen";
 
 /*
 * Contenedor para VisualizadorEtiquetas
@@ -24,14 +25,15 @@ function CreacionPlantillas() {
         const ps = new PlantillasService();
         ps.getAll()
             .then( response => {
+                console.log(response.data.data[0].svg);
+                for(let i = 0; i < plantillas.length; i++){
+                    var contenido_svg = response.data.data[i].svg;
+                    response.data.data[i].svg = crearImagen(contenido_svg);
+                } 
                 setPlantilla(response.data.data);
-                console.log(response);
-            })
-        /*
-        setPlantilla([{nombreArchivo: "plantilla2.xlm", tamanio: "300x100", nombreProducto: "Motor Bonfiglioli o yo k se", codigoBarras: "afawgaarbtwrbawbna", cantidadPzas: 4},
-                      {nombreArchivo: "plantilla3.xlm", tamanio: "640x220", nombreProducto: "Reductor Perron", codigoBarras: "obnaohtnfsobtoapajrandw", cantidadPzas: 5}]);
-        */
-    }, []);
+                console.log(response.data.data[0].svg);
+            });
+    });
     
     let htmlsPlan = [];
     for(let i = 0; i < plantillas.length; i++){
