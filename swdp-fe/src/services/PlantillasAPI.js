@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const PlantillasAPI = axios.create({
-    baseURL: 'http://127.0.0.1:8000/',
+    baseURL: 'https://intersermex-label-service.onrender.com/',
     responseType: 'json'
 });
 
