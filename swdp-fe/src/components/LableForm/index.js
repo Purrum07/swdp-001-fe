@@ -60,6 +60,22 @@ function LabelForm() {
         e.preventDefault()
         setDate(e.target.value)
     }
+    function handleChangeDescription(e) {
+        e.preventDefault()
+        setDescription(e.target.value)
+    }
+    function handleChangeClient(e) {
+        e.preventDefault()
+        setClient(e.target.value)
+    }
+    function handleChangeOrder(e) {
+        e.preventDefault()
+        setOrder(e.target.value)
+    }
+    function handleChangeProvider(e) {
+        e.preventDefault()
+        setProvider(e.target.value)
+    }
 
     return (
         <div>
@@ -69,34 +85,34 @@ function LabelForm() {
                         <Form>
                             <Form.Group className="mb-3" controlId="formInterCode" >
                                 <Form.Label>Código Interno</Form.Label>
-                                <Form.Control type="code" placeholder="Ingrese código interno" value={internCode} onChange={handleChangeCode} />
+                                <Form.Control type="text" placeholder="Ingrese código interno" value={internCode} onChange={handleChangeCode} />
                             </Form.Group>
                             <Button variant="primary" type="submit" onClick={getLabel}>
                                 Obtener información
                             </Button>
                             <Form.Group className="mb-3" controlId="formDescription">
                                 <Form.Label>Descripción del producto</Form.Label>
-                                <Form.Control as="textarea" rows={3} value={description} readOnly />
+                                <Form.Control as="textarea" rows={3} value={description} onChange={handleChangeDescription} />
                             </Form.Group>
                             <Form.Group controlId="date">
                                 <Form.Label>Seleccione fecha</Form.Label>
-                                <Form.Control type="date" name="formdate" value={date} onChange={handleChangeDate} />
+                                <Form.Control type="date" name="formdate" value={date} onChange={handleChangeDate} required/>
                             </Form.Group>
                             <Form.Group className="mb-3" controlId="formClient">
                                 <Form.Label>Cliente</Form.Label>
-                                <Form.Control type="client" value={client} readOnly />
+                                <Form.Control type="text" value={client} onChange={handleChangeClient} />
                             </Form.Group>
                             <Form.Group className="mb-3" controlId="formOrder">
                                 <Form.Label>Orden de compra</Form.Label>
-                                <Form.Control type="order" value={order} readOnly />
+                                <Form.Control type="text" value={order}  onChange={handleChangeOrder}/>
                             </Form.Group>
                             <Form.Group className="mb-3" controlId="formProvider">
                                 <Form.Label>Proveedor</Form.Label>
-                                <Form.Control type="provider" value={provider} readOnly />
+                                <Form.Control type="text" value={provider} onChange={handleChangeProvider} />
                             </Form.Group>
                             <Form.Group className="mb-3" controlId="formQuantity">
                                 <Form.Label>Cantidad</Form.Label>
-                                <Form.Control type="quantity" value={quantity} onChange={handleChangeQuantity} />
+                                <Form.Control type="number" value={quantity} onChange={handleChangeQuantity} required />
                             </Form.Group>
                         </Form>
                     </Col>
