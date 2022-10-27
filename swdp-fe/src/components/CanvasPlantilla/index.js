@@ -3,7 +3,7 @@ import Col from 'react-bootstrap/Col';
 import Stack from 'react-bootstrap/Stack';
 import Button from 'react-bootstrap/Button';
 import Container from 'react-bootstrap/Container';
-import { FaEraser,FaHandMiddleFinger  } from 'react-icons/fa';
+import { FaEraser,FaHandMiddleFinger, FaEdit } from 'react-icons/fa';
 import { Row } from 'react-bootstrap';
 
 function CanvasPlantilla(props) {
@@ -52,7 +52,7 @@ function CanvasPlantilla(props) {
                         <FaEraser className="me-2"/> Eliminar
                     </Button>
                     <Button>
-                        <FaHandMiddleFinger className="me-2"/> Editar
+                        <FaEdit className="me-2"/> Editar
                     </Button>
                 </Stack>
             </Col>
