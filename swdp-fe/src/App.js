@@ -1,6 +1,7 @@
 import Header from './containers/Header';
 import Sidebar from './containers/Sidebar';
 import Inicio from './containers/Inicio';
+import AdicionProductos from './containers/AdicionProductos';
 import VisualizadorEtiquetas from './containers/VisualizadorEtiquetas';
 import CreacionPlantillas from './containers/CreacionPlantillas';
 import PlantillaNueva from './containers/PlantillaNueva';
@@ -21,6 +22,7 @@ function App() {
               <Route path="/VisualizadorEtiquetas" exact="true" element={<VisualizadorEtiquetas/>}/>
               <Route path="/plantillas" exact="true" element={<CreacionPlantillas/>}/>
               <Route path="/CrearPlantilla" exact="true" element={<PlantillaNueva/>}/>
+              <Route path="/AdicionProductos" exact="true" element={<AdicionProductos/>}/>
             </Routes>
           </div>
         </div>
