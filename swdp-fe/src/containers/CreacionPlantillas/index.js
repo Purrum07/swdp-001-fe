@@ -8,11 +8,11 @@ import Container from 'react-bootstrap/Container';
 import CanvasPlantilla from "../../components/CanvasPlantilla";
 import PlantillasService from "../../services/PlantillasService";
 import crearImagen from "../../utilities/CrearImagen";
+import Modal from 'react-bootstrap/Modal';
 
 /*
 * Contenedor para VisualizadorEtiquetas
 */
-
 function CreacionPlantillas() {
     /*
     * Renderiza el contenendor.
@@ -20,8 +20,11 @@ function CreacionPlantillas() {
     */
     
     const [plantillas, setPlantilla] = useState([{}]);
-         
+    const [isLoaded, setIsLoaded] = useState(false)
+    
     useEffect(() => {
+        // Might affect page reload ? 
+        if(!isLoaded) {
         const ps = new PlantillasService();
         ps.getAll()
             .then( response => {
@@ -33,15 +36,19 @@ function CreacionPlantillas() {
                 setPlantilla(response.data.data);
                 console.log(response.data.data[0].svg);
             });
+        setIsLoaded(true)
+        }
     });
     
     let htmlsPlan = [];
     for(let i = 0; i < plantillas.length; i++){
-        htmlsPlan.push(<CanvasPlantilla plantilla={plantillas[i]}/>);
+        htmlsPlan.push(<CanvasPlantilla plantilla={plantillas[i]} />);
     }
+    
     
     return (
         <Fragment>
+
         <Stack direction='vertical' gap='3'>
             <Container fluid className="col-md-12">
                 <h1>Plantillas</h1>
@@ -62,6 +69,7 @@ function CreacionPlantillas() {
                 </Stack>
             </Container>
         </Stack>
+        
         </Fragment>
     );
 }

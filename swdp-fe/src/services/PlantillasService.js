@@ -2,11 +2,19 @@ import PlantillasAPI from './PlantillasAPI';
 
 class PlantillasService {
     getAll() {
-        return PlantillasAPI.get('/labels/all');
+        return PlantillasAPI.get('/plantillas/all');
     }
     
     get(id) {
-        return PlantillasAPI.get(`/labels/${id}`);
+        return PlantillasAPI.get(`/plantillas/${id}`);
+    }
+    
+    delete(id) {
+        return PlantillasAPI.delete(`/plantillas/${id}`)
+    }
+    
+    post(plantilla) {
+        return PlantillasAPI.post(`/plantillas`, plantilla)
     }
 
 }
