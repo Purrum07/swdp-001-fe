@@ -4,6 +4,7 @@ import Inicio from './containers/Inicio';
 import VisualizadorEtiquetas from './containers/VisualizadorEtiquetas';
 import CreacionPlantillas from './containers/CreacionPlantillas';
 import PlantillaNueva from './containers/PlantillaNueva';
+import ModificarPlantillas from './containers/ModificarPlantillas';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -21,6 +22,7 @@ function App() {
               <Route path="/VisualizadorEtiquetas" exact="true" element={<VisualizadorEtiquetas/>}/>
               <Route path="/plantillas" exact="true" element={<CreacionPlantillas/>}/>
               <Route path="/CrearPlantilla" exact="true" element={<PlantillaNueva/>}/>
+              <Route path="/ActualizarPlantilla" exact="true" element={<ModificarPlantillas/>}/>
             </Routes>
           </div>
         </div>

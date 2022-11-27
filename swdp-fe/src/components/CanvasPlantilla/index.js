@@ -2,11 +2,18 @@ import React from 'react';
 import Col from 'react-bootstrap/Col';
 import Stack from 'react-bootstrap/Stack';
 import Button from 'react-bootstrap/Button';
+import { useNavigate } from "react-router-dom";
 import Container from 'react-bootstrap/Container';
 import { FaEraser,FaHandMiddleFinger, FaEdit } from 'react-icons/fa';
 import { Row } from 'react-bootstrap';
 
 function CanvasPlantilla(props) {
+    let navigate = useNavigate(); 
+        const routeChange = () =>{ 
+        let path = `/ActualizarPlantilla`; 
+        navigate(path);
+    }
+
     return(
         <Container fluid className='border '>
         <Row>
@@ -51,7 +58,7 @@ function CanvasPlantilla(props) {
                     <Button>
                         <FaEraser className="me-2"/> Eliminar
                     </Button>
-                    <Button>
+                    <Button onClick={routeChange}>
                         <FaEdit className="me-2"/> Editar
                     </Button>
                 </Stack>
