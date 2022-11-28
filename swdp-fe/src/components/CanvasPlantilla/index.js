@@ -13,7 +13,6 @@ function CanvasPlantilla(props) {
     const borrarPlantilla = () => {
         const ps = new PlantillasService();
         ps.delete(props.plantilla);
-        handleCloseBorrar();
         window.location.reload();
     }
 

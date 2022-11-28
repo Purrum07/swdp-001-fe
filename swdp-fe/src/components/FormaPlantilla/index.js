@@ -91,7 +91,6 @@ function TempleteForm() {
             navigate("/plantillas");
         }
     }
-
     return (
         <Form >
             <Row className="mb-3">
@@ -99,14 +98,22 @@ function TempleteForm() {
                     <Form.Label>Nombre de plantilla</Form.Label>
                     <Form.Control type="text" placeholder="Ingrese nombre a asignar" value={name} onChange={handleChangeName} />
                 </Form.Group>
+
                 <Form.Label>Palomea los campos que quieras para la plantilla</Form.Label>
+
                 <Form.Group as={Col} className="mb-3" controlId="formBasicCheckbox">
                     <Form.Check type="switch" label="Descripción" checked={description} onChange={handleChangeDescription} />
                 </Form.Group>
+
                 <Form.Group as={Col} className="mb-3" controlId="formBasicCheckbox">
                     <Form.Check type="switch" label="Código de barras" checked={barCode} onChange={handleChangeBarCode} />
+                </Form.Group>
+            </Row>
+            <Row className="mb-3">
+                <Form.Group as={Col} className="mb-3" controlId="formBasicCheckbox">
                     <Form.Check type="switch" label="Fecha" checked={date} onChange={handleChangeDate} />
                 </Form.Group>
+
                 <Form.Group as={Col} className="mb-3" controlId="formBasicCheckbox">
                     <Form.Check type="switch" label="Cliente" checked={client} onChange={handleChangeClient} />
                 </Form.Group>
@@ -115,6 +122,7 @@ function TempleteForm() {
                 <Form.Group as={Col} className="mb-3" controlId="formBasicCheckbox">
                     <Form.Check type="switch" label="Orden de compra" checked={order} onChange={handleChangeOrder} />
                 </Form.Group>
+
                 <Form.Group as={Col} className="mb-3" controlId="formBasicCheckbox">
                     <Form.Check type="switch" label="Proveedor" checked={provider} onChange={handleChangeProvider} />
                 </Form.Group>
@@ -146,6 +154,7 @@ function TempleteForm() {
                             4 in.
                         </option>
                     </Form.Select>
+
                 </Form.Group>
                 <Form.Group as={Col} controlId="text" >
                     <Form.Label>Anchura:</Form.Label>
@@ -164,7 +173,9 @@ function TempleteForm() {
                             4 in.
                         </option>
                     </Form.Select>
+
                 </Form.Group>
+
             </Row>
             <Alert variant="danger" onClose={() => setVisibility(false)} dismissible show={visibility}>
                 <Alert.Heading>Datos vacíos</Alert.Heading>
