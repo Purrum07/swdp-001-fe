@@ -1,7 +1,7 @@
 import React from 'react';
 import { useState } from "react";
 import PlantillasService from '../../services/PlantillasService';
-import { FaEraser,FaHandMiddleFinger, FaEdit } from 'react-icons/fa';
+import { FaEraser, FaEdit } from 'react-icons/fa';
 import { Row, Col, Container, Modal, Stack, Button, Form} from 'react-bootstrap';
 
 function CanvasPlantilla(props) {
@@ -12,8 +12,9 @@ function CanvasPlantilla(props) {
     
     const borrarPlantilla = () => {
         const ps = new PlantillasService();
-        ps.delete(props.plantilla.id);
+        ps.delete(props.plantilla);
         handleCloseBorrar();
+        window.location.reload();
     }
 
     return(
@@ -46,7 +47,7 @@ function CanvasPlantilla(props) {
                         <h5>Con nombre: </h5>
                     </Col>
                     <Col sm={12} md={12} lg={6} xl="auto">
-                        {props.plantilla.nombre}
+                        {props.plantilla.name}
                     </Col>
                 </Row>
 
@@ -94,7 +95,7 @@ function CanvasPlantilla(props) {
                     <br/>
                     <br/>
                             <h3>
-                                <a href='#'>{props.plantilla.nombre}</a>
+                                {props.plantilla.name}
                             </h3>
                     </div>
                     <div className='informacion-plantilla'>
@@ -110,7 +111,7 @@ function CanvasPlantilla(props) {
                                     <hr/>
                                 </Col>
                                 <Col xs={6} sm={6} md={6} lg={6}>
-                                    {props.plantilla.tamanio}
+                                    {props.plantilla.t_height} x {props.plantilla.t_width}
                                 </Col>
                             </Row>
                             <Row className="col-12">
@@ -122,8 +123,8 @@ function CanvasPlantilla(props) {
                                     <Form.Check 
                                         disabled
                                         type="switch"
-                                        id="cantidadSwitch"
-                                        checked={props.plantilla.cantidad}
+                                        id="qtySwitch"
+                                        checked={props.plantilla.quantity}
                                         />
                                 </Col>
                             </Row>
@@ -136,8 +137,8 @@ function CanvasPlantilla(props) {
                                     <Form.Check 
                                         disabled
                                         type="switch"
-                                        id="cantidadSwitch"
-                                        checked={props.plantilla.cliente}
+                                        id="clientSwitch"
+                                        checked={props.plantilla.client}
                                         />
                                 </Col>
                             </Row>
@@ -150,8 +151,8 @@ function CanvasPlantilla(props) {
                                     <Form.Check 
                                         disabled
                                         type="switch"
-                                        id="cantidadSwitch"
-                                        checked={props.plantilla.codigoBarras}
+                                        id="barcodeSwitch"
+                                        checked={props.plantilla.barcode}
                                         />
                                 </Col>
                             </Row>
@@ -164,8 +165,8 @@ function CanvasPlantilla(props) {
                                     <Form.Check 
                                         disabled
                                         type="switch"
-                                        id="cantidadSwitch"
-                                        checked={props.plantilla.codigoInterno}
+                                        id="incodeSwitch"
+                                        checked={props.plantilla.internal_code}
                                         />
                                 </Col>
                             </Row>
@@ -178,8 +179,8 @@ function CanvasPlantilla(props) {
                                     <Form.Check 
                                         disabled
                                         type="switch"
-                                        id="cantidadSwitch"
-                                        checked={props.plantilla.descripcion}
+                                        id="descriptionSwitch"
+                                        checked={props.plantilla.description}
                                         />
                                 </Col>
                             </Row>
@@ -192,8 +193,8 @@ function CanvasPlantilla(props) {
                                     <Form.Check 
                                         disabled
                                         type="switch"
-                                        id="cantidadSwitch"
-                                        checked={props.plantilla.fecha}
+                                        id="dateSwitch"
+                                        checked={props.plantilla.date}
                                         />
                                 </Col>
                             </Row>
@@ -206,8 +207,8 @@ function CanvasPlantilla(props) {
                                     <Form.Check 
                                         disabled
                                         type="switch"
-                                        id="cantidadSwitch"
-                                        checked={props.plantilla.ordenCompra}
+                                        id="purchaseOrderSwitch"
+                                        checked={props.plantilla.purchase_order}
                                         />
                                 </Col>
                             </Row>
@@ -220,8 +221,8 @@ function CanvasPlantilla(props) {
                                     <Form.Check 
                                         disabled
                                         type="switch"
-                                        id="cantidadSwitch"
-                                        checked={props.plantilla.proveedor}
+                                        id="supplierSwitch"
+                                        checked={props.plantilla.supplier}
                                         />
                                 </Col>
                             </Row>

@@ -28,13 +28,8 @@ function CreacionPlantillas() {
         const ps = new PlantillasService();
         ps.getAll()
             .then( response => {
-                console.log(response.data.data[0].svg);
-                for(let i = 0; i < plantillas.length; i++){
-                    var contenido_svg = response.data.data[i].svg;
-                    response.data.data[i].svg = crearImagen(contenido_svg);
-                } 
+                console.log(response.data.data);
                 setPlantilla(response.data.data);
-                console.log(response.data.data[0].svg);
             });
         setIsLoaded(true)
         }
