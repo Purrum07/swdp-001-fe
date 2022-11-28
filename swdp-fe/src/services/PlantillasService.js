@@ -24,6 +24,11 @@ class PlantillasService {
     postTemplate(body){
         return PlantillasAPI.post('/templates/new',body, {headers: {
             "Content-Type": "application/json"}
+    }
+
+    updateTemplate(body) {
+        return PlantillasAPI.post('/templates/update/id', body, {headers: {
+            "Content-Type": "application/json"}
         });
     }
 

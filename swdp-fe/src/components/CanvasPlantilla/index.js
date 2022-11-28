@@ -1,10 +1,17 @@
 import React from 'react';
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import PlantillasService from '../../services/PlantillasService';
 import { FaEraser, FaEdit } from 'react-icons/fa';
 import { Row, Col, Container, Modal, Stack, Button, Form} from 'react-bootstrap';
 
 function CanvasPlantilla(props) {
+    let navigate = useNavigate(); 
+        const routeChange = () =>{ 
+        let path = `/ActualizarPlantilla`; 
+        navigate(path);
+    }
+
     const [showBorrar, setShowBorrar] = useState(false);
 
     const handleCloseBorrar = () => setShowBorrar(false);
@@ -236,7 +243,7 @@ function CanvasPlantilla(props) {
                     <Button variant="outline-danger" onClick={handleShowBorrar}>
                         <FaEraser className="me-2"/> Eliminar
                     </Button>
-                    <Button variant="secondary">
+                    <Button onClick={routeChange} variant="secondary">
                         <FaEdit className="me-2"/> Editar
                     </Button>
                 </Stack>

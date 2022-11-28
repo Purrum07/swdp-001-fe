@@ -5,8 +5,8 @@ class LabelService {
         return LableAPI.get(`/labels/${id}`);
     }
 
-    postPlantilla(){
-        
+    updateLabel(nombre, descripcion, fecha, ordenCompra, proveedor, codigoBarras, cliente, tamano) {
+        return LableAPI.put(`/labels/`);
     }
 }
 
