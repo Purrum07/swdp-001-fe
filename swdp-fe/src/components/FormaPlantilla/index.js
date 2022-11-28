@@ -3,94 +3,93 @@ import Col from 'react-bootstrap/Col';
 import Form from 'react-bootstrap/Form';
 import Row from 'react-bootstrap/Row';
 import React from 'react';
-import LabelService from "../../services/LabelService";
 import { useNavigate } from "react-router-dom";
+import Alert from 'react-bootstrap/Alert';
+import PlantillaService from "../../services/PlantillasService";
 
 
 function TempleteForm() {
 
-    
+
     const [name, setName] = React.useState('');
-    const [description = false, setDescription] = React.useState('');
-    const [barCode, setBarCode] = React.useState('');
-    const [date, setDate] = React.useState('');
-    const [client, setClient] = React.useState('');
-    const [order, setOrder] = React.useState('');
-    const [provider, setProvider] = React.useState('');
+    const [description, setDescription] = React.useState(false);
+    const [barCode, setBarCode] = React.useState(false);
+    const [date, setDate] = React.useState(false);
+    const [client, setClient] = React.useState(false);
+    const [order, setOrder] = React.useState(false);
+    const [provider, setProvider] = React.useState(false);
     const [heigth, setHeigth] = React.useState('');
     const [width, setWidth] = React.useState('');
+    const [visibility, setVisibility] = React.useState(false);
+    const [internCode, setInterCode] = React.useState(false);
+    const [quantity, setQuantity] = React.useState(false);
 
-    function firstSet(){
-        setDescription(true)
-    }
     function handleChangeName(e) {
-        e.preventDefault()
+
         setName(e.target.value)
     }
     function handleChangeDescription(e) {
-        e.preventDefault()
-        setDescription(e.target.checked)
+
+        setDescription(!description)
     }
     function handleChangeBarCode(e) {
-        e.preventDefault()
+
         setBarCode(e.target.checked)
     }
     function handleChangeDate(e) {
-        e.preventDefault()
+
         setDate(e.target.checked)
     }
     function handleChangeClient(e) {
-        e.preventDefault()
         setClient(e.target.checked)
     }
     function handleChangeOrder(e) {
-        e.preventDefault()
+
         setOrder(e.target.checked)
     }
     function handleChangeProvider(e) {
-        e.preventDefault()
+
         setProvider(e.target.checked)
     }
     function handleChangeHeigth(e) {
-        e.preventDefault()
+
         setHeigth(e.target.value)
     }
     function handleChangeWidth(e) {
-        e.preventDefault()
+
         setWidth(e.target.value)
     }
 
+    function handleChangeInternCode(e) {
+
+        setInterCode(e.target.checked)
+    }
+
+    function handleChangeQuantity(e) {
+        setQuantity(e.target.checked)
+    }
+
     const navigate = useNavigate();
-    
-    
+
+
     function postPlantilla(e) {
         e.preventDefault()
-        const ls = new LabelService();
-        var newDescription = false
-        var newBarCode = false
-        var newDate = false
-        var newClient = false
-        var newOrder = false
-        var newProvider = false
 
-        description === true ? newDescription = true : newDescription = false
-        barCode === true ? newBarCode = true : newBarCode = false
-        date === true ? newDate = true : newDate = false
-        client === true ? newClient = true : newClient = false
-        order === true ? newOrder = true : newOrder = false
-        provider === true ? newProvider = true : newProvider = false
+        if (heigth === "" || width === "" || name === "") {
+            setVisibility(true)
+        } else {
+            const ps = new PlantillaService();
 
-        const plantillaACrear = {nombre : name, descripcion: newDescription, fecha: newDate, ordenCompra: newOrder, proveedor: newProvider, codigoBarras: newBarCode, cliente: newClient, alto: heigth, ancho: width};
+            const plantillaACrear = { name: name, description: description, date: date, purchase_order: order, supplier: provider, barcode: barCode, client: client, quantity: quantity, internal_code: internCode, t_height: heigth, t_width: width };
 
-        const JSONPlantilla = JSON.stringify(plantillaACrear)
+            const JSONPlantilla = JSON.stringify(plantillaACrear)
 
-        /*ls.getLabel()
-            .then(response => {
-                
-            })/*/
-        console.log("Plantilla creada")
-        console.log(JSONPlantilla)
-        navigate("/plantillas");
+            var response = ps.postTemplate(JSONPlantilla)
+            console.log("Plantilla creada")
+            console.log(response)
+            console.log(JSONPlantilla)
+            navigate("/plantillas");
+        }
     }
 
     return (
@@ -98,47 +97,93 @@ function TempleteForm() {
             <Row className="mb-3">
                 <Form.Group className="mb-3" controlId="text" >
                     <Form.Label>Nombre de plantilla</Form.Label>
-                    <Form.Control type="text" placeholder="Ingrese nombre a asignar" value={name} onChange={handleChangeName}/>
+                    <Form.Control type="text" placeholder="Ingrese nombre a asignar" value={name} onChange={handleChangeName} />
                 </Form.Group>
 
                 <Form.Label>Palomea los campos que quieras para la plantilla</Form.Label>
 
                 <Form.Group as={Col} className="mb-3" controlId="formBasicCheckbox">
-                    <Form.Check type="checkbox" label="Descripción" checked={!!description}  onChange={handleChangeDescription}/>
+                    <Form.Check type="switch" label="Descripción" checked={description} onChange={handleChangeDescription} />
                 </Form.Group>
 
                 <Form.Group as={Col} className="mb-3" controlId="formBasicCheckbox">
-                    <Form.Check type="checkbox" label="Código de barras" checked={barCode} onChange={handleChangeBarCode}/>
+                    <Form.Check type="switch" label="Código de barras" checked={barCode} onChange={handleChangeBarCode} />
                 </Form.Group>
             </Row>
             <Row className="mb-3">
                 <Form.Group as={Col} className="mb-3" controlId="formBasicCheckbox">
-                    <Form.Check type="checkbox" label="Fecha" checked={date} onChange={handleChangeDate}/>
+                    <Form.Check type="switch" label="Fecha" checked={date} onChange={handleChangeDate} />
                 </Form.Group>
 
                 <Form.Group as={Col} className="mb-3" controlId="formBasicCheckbox">
-                    <Form.Check type="checkbox" label="Cliente" checked={client} onChange={handleChangeClient}/>
+                    <Form.Check type="switch" label="Cliente" checked={client} onChange={handleChangeClient} />
                 </Form.Group>
             </Row>
             <Row className="mb-3">
                 <Form.Group as={Col} className="mb-3" controlId="formBasicCheckbox">
-                    <Form.Check type="checkbox" label="Orden de compra" checked={order} onChange={handleChangeOrder}/>
+                    <Form.Check type="switch" label="Orden de compra" checked={order} onChange={handleChangeOrder} />
                 </Form.Group>
 
                 <Form.Group as={Col} className="mb-3" controlId="formBasicCheckbox">
-                    <Form.Check type="checkbox" label="Proveedor" checked={provider} onChange={handleChangeProvider}/>
+                    <Form.Check type="switch" label="Proveedor" checked={provider} onChange={handleChangeProvider} />
                 </Form.Group>
             </Row>
             <Row className="mb-3">
-                <Form.Label>Tamaño de plantilla (En centímetros)</Form.Label>
-                <Form.Group as={Col}  controlId="text" >
-                    <Form.Control type="number" placeholder="Ancho" value={width} onChange={handleChangeWidth}/>
+                <Form.Group as={Col} className="mb-3" controlId="formBasicCheckbox">
+                    <Form.Check type="switch" label="Código interno" checked={internCode} onChange={handleChangeInternCode} />
                 </Form.Group>
-
-                <Form.Group as={Col}  controlId="text" >
-                    <Form.Control type="number" placeholder="Alto" value={heigth} onChange={handleChangeHeigth}/>
+                <Form.Group as={Col} className="mb-3" controlId="formBasicCheckbox">
+                    <Form.Check type="switch" label="Cantidad" checked={quantity} onChange={handleChangeQuantity} />
                 </Form.Group>
             </Row>
+            <Row className="mb-3">
+                <Form.Label>Tamaño de plantilla (En pulgadas)</Form.Label>
+                <Form.Group as={Col} controlId="text" >
+                    <Form.Label>Altura:</Form.Label>
+                    <Form.Select className="col-6" value={heigth} onChange={handleChangeHeigth}>
+                        <option>Selecciona altura</option>
+                        <option value="1in">
+                            1 in.
+                        </option>
+                        <option value="2in">
+                            2 in.
+                        </option>
+                        <option value="3in">
+                            3 in.
+                        </option>
+                        <option value="4in">
+                            4 in.
+                        </option>
+                    </Form.Select>
+
+                </Form.Group>
+                <Form.Group as={Col} controlId="text" >
+                    <Form.Label>Anchura:</Form.Label>
+                    <Form.Select className="col-6" value={width} onChange={handleChangeWidth}>
+                        <option>Selecciona anchura</option>
+                        <option value="1in">
+                            1 in.
+                        </option>
+                        <option value="2in">
+                            2 in.
+                        </option>
+                        <option value="3in">
+                            3 in.
+                        </option>
+                        <option value="4in">
+                            4 in.
+                        </option>
+                    </Form.Select>
+
+                </Form.Group>
+
+            </Row>
+            <Alert variant="danger" onClose={() => setVisibility(false)} dismissible show={visibility}>
+                <Alert.Heading>Datos vacíos</Alert.Heading>
+                <p>
+                    Por favor indica una altura, anchura y nombre.
+                </p>
+            </Alert>
             <Button variant="primary" type="submit" onClick={postPlantilla} >
                 Crear
             </Button>

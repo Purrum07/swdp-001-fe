@@ -9,6 +9,12 @@ class PlantillasService {
         return PlantillasAPI.get(`/labels/${id}`);
     }
 
+    postTemplate(body){
+        return PlantillasAPI.post('/templates/new',body, {headers: {
+            "Content-Type": "application/json"}
+        });
+    }
+
 }
 
 export default PlantillasService;
