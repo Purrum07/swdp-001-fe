@@ -56,7 +56,7 @@ function FormaProducto() {
     function addLabel(e) {
         e.preventDefault();
 
-        if (id <= 0  || purchaseOrder <= 0 || date === "" || description === "" || client === "" || supplier === "" || id.toString().length < 14) {
+        if (id <= 0  || purchaseOrder <= 0 || date === "" || description === "" || client === "" || supplier === "" || id.toString().length !== 14) {
             setVisibility(true);
         } else {
             setVisibility(false);
@@ -75,7 +75,6 @@ function FormaProducto() {
             <Form>
                 <Row className="mb-3">
                     <Form.Label>Llena la información para agregar un nuevo producto.</Form.Label>
-
                     <Form.Group as={Col} className="mb-3" controlId="formCodigoInterno">
                         <Form.Label>Código interno</Form.Label>
                         <Form.Control type="number" onChange={handleChangeId} placeholder="E.g. 49052060943795" required/>

@@ -80,10 +80,9 @@ function ActualizarPlantilla(props) {
         setClient(!client);
     };
 
-    // const handleChangeQuantity = () => {
-    //      console.log(!quantity);
-    //      setQuantity(!quantity);
-    // };
+    const handleChangeQuantity = () => {
+          setQuantity(!quantity);
+    };
 
     const handleChangeInternalCode = () => {
         setInternalCode(!internalCode);
@@ -156,6 +155,9 @@ function ActualizarPlantilla(props) {
                 <Form.Group as={Col} className="mb-3" controlId="formBasicCheckbox">
                     <Form.Check type="switch" label="Código interno" onChange={handleChangeInternalCode} checked={internalCode} defaultChecked={props.atribPlantilla.internalCode}/>
                 </Form.Group>
+                <Form.Group as={Col} className="mb-3" controlId="formBasicCheckbox">
+                    <Form.Check type="switch" label="Cantidad" onChange={handleChangeQuantity} checked={quantity} defaultChecked={props.atribPlantilla.quantity}/>
+                </Form.Group>
             </Row>
             <Row className="mb-3">
                 <Form.Label>Tamaño de plantilla (En pulgadas)</Form.Label>
@@ -206,7 +208,7 @@ function ActualizarPlantilla(props) {
                 </p>
             </Alert>
             <Button variant="primary" type="submit" onClick={postPlantilla} >
-                Crear
+                Actualizar
             </Button>
         </Form>
     );

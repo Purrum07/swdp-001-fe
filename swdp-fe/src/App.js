@@ -29,6 +29,7 @@ function App() {
                 <Route path="/plantillas" exact="true" element={<CreacionPlantillas/>}/>
                 <Route path="/CrearPlantilla" exact="true" element={<PlantillaNueva/>}/>
                 <Route path="/ActualizarPlantilla" exact="true" element={<ModificarPlantillas/>}/>
+                <Route path="/AdicionProductos" exact="true" element={<AdicionProductos/>}/>
               </Routes>
             </div>
           </div>

@@ -9,7 +9,7 @@ class LabelService {
         return LableAPI.post('/labels/new', body, {headers: {
             "Content-Type": "application/json"}
         });
-        
+    }
     updateLabel(nombre, descripcion, fecha, ordenCompra, proveedor, codigoBarras, cliente, tamano) {
         return LableAPI.put(`/labels/`);
     }
