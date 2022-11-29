@@ -7,9 +7,9 @@ import { Row, Col, Container, Modal, Stack, Button, Form} from 'react-bootstrap'
 
 function CanvasPlantilla(props) {
     let navigate = useNavigate(); 
-        const routeChange = () =>{ 
+    const routeChange = () => { 
         let path = `/ActualizarPlantilla`; 
-        navigate(path);
+        navigate(path, {state:{props: props}});
     }
 
     const [showBorrar, setShowBorrar] = useState(false);

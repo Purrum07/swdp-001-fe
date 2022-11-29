@@ -1,9 +1,11 @@
 import { NavLink } from 'react-router-dom';
 import { FaHome , FaBarcode , FaChartBar, FaCheckSquare } from 'react-icons/fa';
+import {Navbar} from 'react-bootstrap/Navbar';
 
 function SideBar() {
     return (
-        <div className="sidebar">
+        <div className="sidebar col-2">
+
             <ul>
                 <li>
                     <NavLink to="/" className="text-light rounded py-2 w-100 d-inline-block px-3" activeclassname="active">

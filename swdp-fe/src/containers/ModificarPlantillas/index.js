@@ -1,6 +1,6 @@
 import React, { useState , useEffect } from "react";
 import ActualizarPlantilla from "../../components/ActualizarPlantilla";
-
+import {useLocation} from 'react-router-dom';
 /*
 * Contenedor para ActualizarPlantilla
 */
@@ -12,6 +12,7 @@ function ModificarPlantillas() {
     */
 
     const [atributosPlantilla, setAtributosPlantilla] = useState({});
+    const location = useLocation();
     
     useEffect(() => {
 
@@ -29,23 +30,23 @@ function ModificarPlantillas() {
             height: "",
             width: ""
         };
+        //console.log(location.state.props.plantilla);
+        //console.log(atributos);
 
-        console.log(atributos);
+        atributos.id = location.state.props.plantilla.id;
+        atributos.name = location.state.props.plantilla.name;
+        atributos.description = location.state.props.plantilla.description;
+        atributos.date = location.state.props.plantilla.date;
+        atributos.purchaseOrder = location.state.props.plantilla.purchase_order;
+        atributos.supplier = location.state.props.plantilla.supplier;
+        atributos.barCode = location.state.props.plantilla.barcode;
+        atributos.client = location.state.props.plantilla.client;
+        atributos.quantity = location.state.props.plantilla.quantity;
+        atributos.internalCode = location.state.props.plantilla.internal_code;
+        atributos.height = location.state.props.plantilla.t_height;
+        atributos.width = location.state.props.plantilla.t_width;
 
-        atributos.id = 1
-        atributos.name = "Prueba 1"
-        atributos.description = true;
-        atributos.date = true;
-        atributos.purchaseOrder = true;
-        atributos.supplier = true;
-        atributos.barCode = true;
-        atributos.client = true;
-        atributos.quantity = true;
-        atributos.internalCode = true;
-        atributos.height = "1in";
-        atributos.width = "1in";
-
-        console.log(atributos);
+        //console.log(atributos);
 
         setAtributosPlantilla(atributos);
     }, []);
