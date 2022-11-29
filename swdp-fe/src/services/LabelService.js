@@ -5,15 +5,10 @@ class LabelService {
         return LableAPI.get(`/labels/${id}`);
     }
 
-    addLabel(codigoInterno, descripcion, cliente, ordenCompra, proveedor) {
-        let nuevoLabel = {};
-        nuevoLabel.codigoInterno = parseInt(codigoInterno);
-        nuevoLabel.descripcion = descripcion;
-        nuevoLabel.cliente = cliente;
-        nuevoLabel.ordenCompra = parseInt(ordenCompra);
-        nuevoLabel.proveedor = proveedor;
-
-        return LableAPI.post("/agregarLabel", nuevoLabel);
+    addLabel(body) {
+        return LableAPI.post('/labels/new', body, {headers: {
+            "Content-Type": "application/json"}
+        });
     }
 }
 
