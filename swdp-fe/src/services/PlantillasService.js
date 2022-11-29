@@ -1,6 +1,7 @@
 import PlantillasAPI from './PlantillasAPI';
 
 class PlantillasService {
+
     getAll() {
         return PlantillasAPI.get('/templates/all');
     }
