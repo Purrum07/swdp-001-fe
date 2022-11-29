@@ -1,5 +1,5 @@
 //@ts-ignore
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import LabelService from "../../services/LabelService";
@@ -9,25 +9,31 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Card from 'react-bootstrap/Card';
 import Pdf from "react-to-pdf";
+import PlantillasService from '../../services/PlantillasService';
 
 const ref = React.createRef();
 
 function LabelForm() {
 
-    const [description, setDescription] = React.useState('');
-    const [client, setClient] = React.useState('');
-    const [order, setOrder] = React.useState('');
-    const [provider, setProvider] = React.useState('');
-    const [internCode, setInterCode] = React.useState('');
-    const [quantity, setQuantity] = React.useState('');
-    const [barCode, setBarCode] = React.useState('');
-    const [date, setDate] = React.useState('');
+    const [description, setDescription] = useState('');
+    const [client, setClient] = useState('');
+    const [order, setOrder] = useState('');
+    const [provider, setProvider] = useState('');
+    const [internCode, setInterCode] = useState('');
+    const [quantity, setQuantity] = useState('');
+    const [barCode, setBarCode] = useState('');
+    const [date, setDate] = useState('');
+
+    const [template, setTemplate] = useState({});
+    const [allTemplates, setAllTemplates] = useState([{}]);
+
+
 
     const handleCreateOnClick = (toPdf) => {
         toPdf();
     }
     const options = {
-        orientation: 'landscape',
+        orientation: 'portrait',
         unit: 'in',
         format: [18, 12]
     };
@@ -49,33 +55,83 @@ function LabelForm() {
             })
     }
     function handleChangeCode(e) {
-        e.preventDefault()
+
         setInterCode(e.target.value)
     }
     function handleChangeQuantity(e) {
-        e.preventDefault()
+
         setQuantity(e.target.value)
     }
     function handleChangeDate(e) {
-        e.preventDefault()
+
         setDate(e.target.value)
     }
     function handleChangeDescription(e) {
-        e.preventDefault()
+
         setDescription(e.target.value)
     }
     function handleChangeClient(e) {
-        e.preventDefault()
+
         setClient(e.target.value)
     }
     function handleChangeOrder(e) {
-        e.preventDefault()
+
         setOrder(e.target.value)
     }
     function handleChangeProvider(e) {
-        e.preventDefault()
+
         setProvider(e.target.value)
     }
+    function handleChangeTemplate(e) {
+
+        var name = e.target.value
+        var selectedTemplate
+
+        for (let i = 0; i < allTemplates.length; i++) {
+            if (allTemplates[i].name === name) {
+                selectedTemplate = allTemplates[i]
+            }
+        }
+
+        console.log(selectedTemplate)
+
+        setTemplate(selectedTemplate)
+    }
+    /*
+    const JSONobj1 = '{"id":"1", "name":"Mario","description":true,"date":false,"purchase_order":true,"supplier":false,"barcode":false,"client":true,"quantity": 4,"internal_code":false, "t_height":"17","t_width":"16"}'
+    const JSONobj2 = '{"id":"2", "name":"Marco","description":false,"date":false,"purchase_order":false,"supplier":false,"barcode":true,"client":true,"quantity": 15,"internal_code":false, "t_height":"17","t_width":"16"}'
+    const JSONobj3 = '{"id":"3", "name":"Sasa","description":true,"date":false,"purchase_order":true,"supplier":false,"barcode":false,"client":true,"quantity": 4,"internal_code":false, "t_height":"17","t_width":"16"}'
+    
+    const obj1 = JSON.parse(JSONobj1)
+    const obj2 = JSON.parse(JSONobj2)
+    const obj3 = JSON.parse(JSONobj3)
+
+    var objArray = []
+
+    objArray.push(obj1)
+    objArray.push(obj2)
+    objArray.push(obj3)
+
+    console.log(objArray)
+    */
+
+    useEffect(() => {
+        const ps = new PlantillasService();
+
+        ps.getAllTemplates()
+            .then(response => {
+                
+                //console.log(response.data)
+     
+                /*for(let i = 0; i < response.data.data.length; i++){
+                    tempTemplates.push(response.data.data[i])
+                }*/
+                
+                //console.log(tempTemplates[0])
+
+                setAllTemplates(response.data.data)
+            })
+    }, [])
 
     return (
         <div>
@@ -84,36 +140,62 @@ function LabelForm() {
                     <Col xs={6}>
                         <Form>
                             <Form.Group className="mb-3" controlId="formInterCode" >
+                                <Form.Select className="col-6" onChange={handleChangeTemplate}>
+                                    <option>Selecciona el nombre de la plantilla a usar</option>
+                                    {
+                                        allTemplates.map((e, key) => {
+                                            return <option key={key} onClick={handleChangeTemplate}>
+                                                {e.name}
+                                            </option>
+                                        })
+                                    }
+                                </Form.Select>
+                            </Form.Group>
+                            <Form.Group className="mb-3" controlId="formInterCode" >
                                 <Form.Label>Código Interno</Form.Label>
                                 <Form.Control type="text" placeholder="Ingrese código interno" value={internCode} onChange={handleChangeCode} />
                             </Form.Group>
+
                             <Button variant="primary" type="submit" onClick={getLabel}>
                                 Obtener información
                             </Button>
-                            <Form.Group className="mb-3" controlId="formDescription">
-                                <Form.Label>Descripción del producto</Form.Label>
-                                <Form.Control as="textarea" rows={3} value={description} onChange={handleChangeDescription} />
-                            </Form.Group>
-                            <Form.Group controlId="date">
-                                <Form.Label>Seleccione fecha</Form.Label>
-                                <Form.Control type="date" name="formdate" value={date} onChange={handleChangeDate} required/>
-                            </Form.Group>
-                            <Form.Group className="mb-3" controlId="formClient">
-                                <Form.Label>Cliente</Form.Label>
-                                <Form.Control type="text" value={client} onChange={handleChangeClient} />
-                            </Form.Group>
-                            <Form.Group className="mb-3" controlId="formOrder">
-                                <Form.Label>Orden de compra</Form.Label>
-                                <Form.Control type="text" value={order}  onChange={handleChangeOrder}/>
-                            </Form.Group>
-                            <Form.Group className="mb-3" controlId="formProvider">
-                                <Form.Label>Proveedor</Form.Label>
-                                <Form.Control type="text" value={provider} onChange={handleChangeProvider} />
-                            </Form.Group>
-                            <Form.Group className="mb-3" controlId="formQuantity">
-                                <Form.Label>Cantidad</Form.Label>
-                                <Form.Control type="number" value={quantity} onChange={handleChangeQuantity} required />
-                            </Form.Group>
+
+                            {(template.description === true || template.description === 1  ) &&
+                                <Form.Group className="mb-3" controlId="formDescription">
+                                    <Form.Label>Descripción del producto</Form.Label>
+                                    <Form.Control as="textarea" rows={3} value={description} onChange={handleChangeDescription} />
+                                </Form.Group>
+                            }
+                            {(template.date === true ||  template.date === 1 ) &&
+                                <Form.Group controlId="date">
+                                    <Form.Label>Seleccione fecha</Form.Label>
+                                    <Form.Control type="date" name="formdate" value={date} onChange={handleChangeDate} required />
+                                </Form.Group>
+                            }
+                            {(template.client === true || template.client === 1 )&&
+                                <Form.Group className="mb-3" controlId="formClient">
+                                    <Form.Label>Cliente</Form.Label>
+                                    <Form.Control type="text" value={client} onChange={handleChangeClient} />
+                                </Form.Group>
+                            }
+                            {(template.purchase_order === true || template.purchase_order === 1 )&&
+                                <Form.Group className="mb-3" controlId="formOrder">
+                                    <Form.Label>Orden de compra</Form.Label>
+                                    <Form.Control type="text" value={order} onChange={handleChangeOrder} />
+                                </Form.Group>
+                            }
+                            {(template.supplier === true  || template.supplier === 1) &&
+                                <Form.Group className="mb-3" controlId="formProvider">
+                                    <Form.Label>Proveedor</Form.Label>
+                                    <Form.Control type="text" value={provider} onChange={handleChangeProvider} />
+                                </Form.Group>
+                            }
+                            {(template.quantity === true  || template.quantity === 1) &&
+                                <Form.Group className="mb-3" controlId="formQuantity">
+                                    <Form.Label>Cantidad</Form.Label>
+                                    <Form.Control type="number" value={quantity} onChange={handleChangeQuantity} required />
+                                </Form.Group>
+                            }
                         </Form>
                     </Col>
 
@@ -124,59 +206,82 @@ function LabelForm() {
                                 <Card.Body>
                                     <Container>
                                         <Row className="justify-content-md-center">
-                                            <Col xs={6} md={6}>
-                                                <Card.Text >
-                                                    <b>Código Interno:</b>
-                                                </Card.Text>
-                                                <Card.Text style={{ fontSize: '1.64rem' }}>
-                                                    {internCode}
-                                                </Card.Text>
-                                            </Col>
-                                            <Col xs={6} md={6}>
-                                                <div>
-                                                    <svg dangerouslySetInnerHTML={{ __html: barCode }}></svg>
-                                                </div>
-                                            </Col>
+
+                                            {(template.internal_code === true || template.internal_code === 1 ) &&
+                                                <Col xs={6} md={6}>
+                                                    <Card.Text >
+                                                        <b>Código Interno:</b>
+                                                    </Card.Text>
+                                                    <Card.Text style={{ fontSize: '1.64rem' }}>
+                                                        {internCode}
+                                                    </Card.Text>
+                                                </Col>
+                                            }
+                                            {(template.barcode === true || template.barcode === 1 )&&
+                                                <Col xs={6} md={6}>
+                                                    <div>
+                                                        <svg dangerouslySetInnerHTML={{ __html: barCode }}></svg>
+                                                    </div>
+                                                </Col>
+                                            }
+
                                         </Row>
                                         <Row>
-                                            <Col xs={6}>
-                                                <Card.Text>
-                                                    <b>Descripción:</b> {description}
-                                                </Card.Text>
-                                            </Col>
+                                            {(template.description === true || template.description === 1 )&&
+                                                <Col xs={6}>
+                                                    <Card.Text>
+                                                        <b>Descripción:</b> {description}
+                                                    </Card.Text>
+                                                </Col>
+                                            }
+
                                         </Row>
                                         <Row>
-                                            <Col xs={6}>
-                                                <Card.Text>
-                                                    <b>Fecha:</b> {date}
-                                                </Card.Text>
-                                            </Col>
+                                            {(template.date === true || template.date === 1 )&&
+                                                <Col xs={6}>
+                                                    <Card.Text>
+                                                        <b>Fecha:</b> {date}
+                                                    </Card.Text>
+                                                </Col>
+                                            }
+
                                         </Row>
                                         <Row>
-                                            <Col xs={6}>
-                                                <Card.Text>
-                                                    <b> Cliente: </b>{client}
-                                                </Card.Text>
-                                            </Col>
+                                            {(template.client === true  || template.client === 1 )&&
+                                                <Col xs={6}>
+                                                    <Card.Text>
+                                                        <b> Cliente: </b>{client}
+                                                    </Card.Text>
+                                                </Col>
+                                            }
+
                                         </Row>
                                         <Row>
-                                            <Col xs={12} md={8}>
-                                                <Card.Text>
-                                                    <b>Orden de compra:</b> {order}
-                                                </Card.Text>
-                                            </Col>
-                                            <Col xs={6} md={4}>
-                                                <Card.Text>
-                                                    <b>Cantidad:</b> {quantity}
-                                                </Card.Text>
-                                            </Col>
+                                            {(template.purchase_order === true || template.purchase_order === 1 )&&
+                                                <Col xs={12} md={8}>
+                                                    <Card.Text>
+                                                        <b>Orden de compra:</b> {order}
+                                                    </Card.Text>
+                                                </Col>
+                                            }
+                                            {(template.quantity === true || template.quantity === 1 )&&
+                                                <Col xs={6} md={4}>
+                                                    <Card.Text>
+                                                        <b>Cantidad:</b> {quantity}
+                                                    </Card.Text>
+                                                </Col>
+                                            }
+
                                         </Row>
                                         <Row>
-                                            <Col xs={6}>
-                                                <Card.Text>
-                                                    <b>Proveedor:</b> {provider}
-                                                </Card.Text>
-                                            </Col>
+                                            {(template.supplier === true || template.supplier === 1) &&
+                                                <Col xs={6}>
+                                                    <Card.Text>
+                                                        <b>Proveedor:</b> {provider}
+                                                    </Card.Text>
+                                                </Col>
+                                            }
+
                                         </Row>
                                     </Container>
                                 </Card.Body>

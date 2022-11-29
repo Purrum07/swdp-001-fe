@@ -1,8 +1,8 @@
 import PlantillasAPI from './PlantillasAPI';
 
 class PlantillasService {
-    getAll() {
-        return PlantillasAPI.get('/labels/all');
+    getAllTemplates() {
+        return PlantillasAPI.get('/templates/all');
     }
     
     get(id) {
