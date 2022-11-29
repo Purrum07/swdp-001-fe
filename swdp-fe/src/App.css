@@ -15,11 +15,13 @@
 }
 
 .sidebar {
-    width: 15rem;
+    width: 15.6rem;
     height: 100vh;
     background-color: #1c77c3;
     border-right: 1px solid #e7e9eb  ;
+    position: fixed;
 }
+
 
 ul {
     list-style: none;
@@ -37,4 +39,11 @@ a {
 
 .innerContent {
     padding: 1rem;
+}
+
+.main-row {
+    margin-left: 0rem !important;
+}
+.main-col {
+    padding: 0rem !important;
 }
