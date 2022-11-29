@@ -1,9 +1,11 @@
 import { NavLink } from 'react-router-dom';
-import { FaHome , FaBarcode , FaChartBar } from 'react-icons/fa';
+import { FaHome , FaBarcode , FaChartBar, FaCheckSquare } from 'react-icons/fa';
+import {Navbar} from 'react-bootstrap/Navbar';
 
 function SideBar() {
     return (
-        <div className="sidebar">
+        <div className="sidebar col-2">
+
             <ul>
                 <li>
                     <NavLink to="/" className="text-light rounded py-2 w-100 d-inline-block px-3" activeclassname="active">
@@ -17,7 +19,7 @@ function SideBar() {
                 </li>
                 <li>
                     <NavLink to="/plantillas" className="text-light rounded py-2 d-inline-block px-3" activeclassname="active">
-                        <FaBarcode className="me-2"/> Plantillas
+                        <FaCheckSquare className="me-2"/> Plantillas
                     </NavLink>
                 </li>
                 <li>
