@@ -1,6 +1,7 @@
 import Header from './containers/Header';
 import Sidebar from './containers/Sidebar';
 import Inicio from './containers/Inicio';
+import AdicionProductos from './containers/AdicionProductos';
 import VisualizadorEtiquetas from './containers/VisualizadorEtiquetas';
 import CreacionPlantillas from './containers/CreacionPlantillas';
 import PlantillaNueva from './containers/PlantillaNueva';
