@@ -23,11 +23,8 @@ function LabelForm() {
     const [quantity, setQuantity] = useState('');
     const [barCode, setBarCode] = useState('');
     const [date, setDate] = useState('');
-
     const [template, setTemplate] = useState({});
     const [allTemplates, setAllTemplates] = useState([{}]);
-
-
 
     const handleCreateOnClick = (toPdf) => {
         toPdf();
@@ -97,37 +94,12 @@ function LabelForm() {
 
         setTemplate(selectedTemplate)
     }
-    /*
-    const JSONobj1 = '{"id":"1", "name":"Mario","description":true,"date":false,"purchase_order":true,"supplier":false,"barcode":false,"client":true,"quantity": 4,"internal_code":false, "t_height":"17","t_width":"16"}'
-    const JSONobj2 = '{"id":"2", "name":"Marco","description":false,"date":false,"purchase_order":false,"supplier":false,"barcode":true,"client":true,"quantity": 15,"internal_code":false, "t_height":"17","t_width":"16"}'
-    const JSONobj3 = '{"id":"3", "name":"Sasa","description":true,"date":false,"purchase_order":true,"supplier":false,"barcode":false,"client":true,"quantity": 4,"internal_code":false, "t_height":"17","t_width":"16"}'
-    
-    const obj1 = JSON.parse(JSONobj1)
-    const obj2 = JSON.parse(JSONobj2)
-    const obj3 = JSON.parse(JSONobj3)
-
-    var objArray = []
-
-    objArray.push(obj1)
-    objArray.push(obj2)
-    objArray.push(obj3)
-
-    console.log(objArray)
-    */
 
     useEffect(() => {
         const ps = new PlantillasService();
 
-        ps.getAllTemplates()
+        ps.getAll()
             .then(response => {
-                
-                //console.log(response.data)
-     
-                /*for(let i = 0; i < response.data.data.length; i++){
-                    tempTemplates.push(response.data.data[i])
-                }*/
-                
-                //console.log(tempTemplates[0])
 
                 setAllTemplates(response.data.data)
             })
